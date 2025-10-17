@@ -1,12 +1,33 @@
-# React + Vite
+# 💻 Code Reviewer
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Code Reviewer is a **Full-Stack MERN Application** that allows users to **submit their code** and receive **AI-powered reviews, feedback, and error detection** using the **Google Gemini API**.  
+It helps developers quickly identify coding mistakes and improve their code quality through intelligent analysis.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Features
 
-## Expanding the ESLint configuration
+- 🧠 **AI-Powered Code Review:** Uses **Google Gemini API** to analyze and detect errors in code.
+- ⚡ **Instant Feedback:** Provides meaningful suggestions, corrections, and performance tips.
+- 🖥️ **Clean Frontend:** Simple and responsive UI for entering and viewing code results.
+- ⚙️ **Full MERN Stack:** Built with **MongoDB, Express.js, React.js, and Node.js**.
+- 🔒 **Scalable Backend:** Designed to easily integrate authentication or additional AI tools later.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+---
+
+## 🧰 Tech Stack
+
+**Frontend:** React.js  
+**Backend:** Node.js, Express.js  
+**Database:** MongoDB  
+**AI Integration:** Google Gemini API  
+**Version Control:** Git & GitHub  
+
+---
+
+## ⚙️ Installation and Setup
+
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/<your-username>/code-reviewer.git
+   cd code-reviewer
