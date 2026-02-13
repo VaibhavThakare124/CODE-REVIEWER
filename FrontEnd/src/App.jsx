@@ -20,9 +20,17 @@ function App() {
     prism.highlightAll()
   }, [])
 
+  const API_URL = import.meta.env.VITE_API_URL || 'https://code-reviewer-backend-goml.onrender.com'
+
   async function reviewCode() {
-    const response = await axios.post('https://code-reviewer-backend-goml.onrender.com', { code })
-    setReview(response.data)
+    setReview('*Loading review...*')
+    try {
+      const response = await axios.post(`${API_URL}/ai/get-review`, { code }, { timeout: 60000 })
+      setReview(response.data ?? '')
+    } catch (err) {
+      const message = err.response?.data?.error || err.message || 'Request failed'
+      setReview(`**Error**\n\n${message}\n\n*(Check backend URL and that the server is awake on Render.)*`)
+    }
   }
 
   return (
