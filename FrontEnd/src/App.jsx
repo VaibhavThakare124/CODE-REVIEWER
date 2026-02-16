@@ -1,74 +1,103 @@
-import { useState, useEffect } from 'react'
-import "prismjs/themes/prism-tomorrow.css"
-import Editor from "react-simple-code-editor"
-import prism from "prismjs"
-import Markdown from "react-markdown"
-import rehypeHighlight from "rehype-highlight";
-import "highlight.js/styles/github-dark.css";
-import axios from 'axios'
-import './App.css'
+import React from 'react'
+import PanelPage from './components/pages/PanelPage'
+import Navbar from './components/navigation/Navbar'
 
-function App() {
-  const [ count, setCount ] = useState(0)
-  const [ code, setCode ] = useState(` function sum() {
-  return 1 + 1
-}`)
-
-  const [ review, setReview ] = useState(``)
-
-  useEffect(() => {
-    prism.highlightAll()
-  }, [])
-
-  const API_URL = import.meta.env.VITE_API_URL || 'https://code-reviewer-backend-goml.onrender.com'
-
-  async function reviewCode() {
-    setReview('*Loading review...*')
-    try {
-      const response = await axios.post(`${API_URL}/ai/get-review`, { code }, { timeout: 60000 })
-      setReview(response.data ?? '')
-    } catch (err) {
-      const message = err.response?.data?.error || err.message || 'Request failed'
-      setReview(`**Error**\n\n${message}\n\n*(Check backend URL and that the server is awake on Render.)*`)
-    }
-  }
-
+const App = () => {
   return (
-    <>
-      <main>
-        <div className="left">
-          <div className="code">
-            <Editor
-              value={code}
-              onValueChange={code => setCode(code)}
-              highlight={code => prism.highlight(code, prism.languages.javascript, "javascript")}
-              padding={10}
-              style={{
-                fontFamily: '"Fira code", "Fira Mono", monospace',
-                fontSize: 16,
-                border: "1px solid #ddd",
-                borderRadius: "5px",
-                height: "100%",
-                width: "100%"
-              }}
-            />
-          </div>
-          <div
-            onClick={reviewCode}
-            className="review">Review</div>
-        </div>
-        <div className="right">
-          <Markdown
-
-            rehypePlugins={[ rehypeHighlight ]}
-
-          >{review}</Markdown>
-        </div>
-      </main>
-    </>
+    <div>
+      <Navbar/>
+      <PanelPage/>
+    </div>
   )
 }
 
-
-
 export default App
+
+
+
+
+// import { useState } from "react"
+// import axios from "axios"
+// import EditorPanel from "./components/panels/EditorPanel"
+// import ReviewPanel from "./components/panels/ReviewPanel"
+// import LandingPage from "./components/pages/LandingPage"
+
+// function App() {
+//   const [showLanding, setShowLanding] = useState(true)
+//   const [code, setCode] = useState(`function sum(a, b) {
+//   return a + b
+// }`)
+
+//   const [review, setReview] = useState("")
+//   const [isReviewing, setIsReviewing] = useState(false)
+
+//   const API_URL =
+//     import.meta.env.VITE_API_URL ||
+//     "https://code-reviewer-backend-goml.onrender.com"
+
+//   async function reviewCode() {
+//     setIsReviewing(true)
+//     setReview("") // Clear previous review
+
+//     try {
+//       const response = await axios.post(
+//         `${API_URL}/ai/get-review`,
+//         { code },
+//         { timeout: 60000 }
+//       )
+
+//       setReview(response.data ?? "")
+//     } catch (err) {
+//       const message =
+//         err.response?.data?.error || err.message || "Request failed"
+
+//       setReview(`**Error**\n\n${message}`)
+//     } finally {
+//       setIsReviewing(false)
+//     }
+//   }
+
+//   if (showLanding) {
+//     return <LandingPage onGetStarted={() => setShowLanding(false)} />
+//   }
+
+//   return (
+//     <div className="h-screen w-screen flex flex-col bg-[#242424] overflow-hidden text-slate-100">
+//       {/* Header */}
+//       <header className="h-16 flex items-center justify-between px-6 border-b border-slate-700/50 bg-[#242424]/50 backdrop-blur-md z-10 shrink-0">
+//         <div className="flex items-center gap-3">
+//           <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-500 to-purple-500 flex items-center justify-center font-bold shadow-lg">
+//             IQ
+//           </div>
+//           <h1 className="font-semibold text-lg tracking-wide">codiq.ai</h1>
+//         </div>
+//         <button
+//           onClick={() => setShowLanding(true)}
+//           className="text-sm text-slate-400 hover:text-white transition-colors"
+//         >
+//           Back to Home
+//         </button>
+//       </header>
+
+//       {/* Main Content */}
+//       <main className="flex-1 flex flex-col md:flex-row gap-6 p-6 min-h-0 overflow-hidden relative">
+//         {/* Background Decor */}
+//         <div className="absolute top-[-20%] left-[-10%] w-[50%] h-[50%] bg-blue-600/10 rounded-full blur-[120px] pointer-events-none" />
+//         <div className="absolute bottom-[-20%] right-[-10%] w-[50%] h-[50%] bg-purple-600/10 rounded-full blur-[120px] pointer-events-none" />
+
+//         <EditorPanel
+//           code={code}
+//           setCode={setCode}
+//           onReview={reviewCode}
+//           isReviewing={isReviewing}
+//         />
+//         <ReviewPanel
+//           review={review}
+//           isReviewing={isReviewing}
+//         />
+//       </main>
+//     </div>
+//   )
+// }
+
+// export default App
