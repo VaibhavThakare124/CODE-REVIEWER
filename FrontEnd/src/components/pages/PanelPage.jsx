@@ -62,7 +62,7 @@ const PanelPage = () => {
         </header> */}
   
         {/* Main Content */}
-        <main className="flex-1 flex flex-col md:flex-row gap-6 p-6 min-h-0 overflow-auto relative mt-[10vh]">
+        <main className="flex-1 flex flex-col md:flex-row gap-6 p-6 min-h-0 overflow-auto relative mt-[10vh] overflow-x-hidden">
           {/* Background Decor */}
           <div className="absolute top-[-20%] left-[-10%] w-[50%] h-[50%] bg-blue-600/10 rounded-full blur-[120px] pointer-events-none" />
           <div className="absolute bottom-[-20%] right-[-10%] w-[50%] h-[50%] bg-purple-600/10 rounded-full blur-[120px] pointer-events-none" />
