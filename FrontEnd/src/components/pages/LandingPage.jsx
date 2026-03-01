@@ -77,8 +77,10 @@ export default function LandingPage({ onGetStarted }) {
             onClick={onGetStarted}
             className="
               group relative inline-flex items-center justify-center
-              px-12 py-4
-              text-sm font-semibold tracking-[0.25em]
+              px-8 py-3 text-xs
+              sm:px-10 sm:py-4 sm:text-sm
+              md:px-12 md:py-4 md:text-sm
+              font-semibold tracking-[0.25em]
               uppercase
               text-white
               border border-white/20
@@ -98,13 +100,14 @@ export default function LandingPage({ onGetStarted }) {
             " />
 
             <span className="
-              relative flex items-center gap-4
+              relative flex items-center gap-3
+              sm:gap-4
               transition-colors duration-500
               group-hover:text-black
             ">
               Enter Playground
               <svg
-                className="w-5 h-5 transition-transform duration-500 group-hover:translate-x-2"
+                className="w-4 h-4 sm:w-5 sm:h-5 transition-transform duration-500 group-hover:translate-x-2"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -119,6 +122,7 @@ export default function LandingPage({ onGetStarted }) {
             </span>
           </button>
         </div>
+        
       </div>
 
       

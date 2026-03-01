@@ -49,9 +49,9 @@ const PanelPage = () => {
   }
 
   return (
-    <div className="relative h-full w-full flex flex-col bg-transparent text-slate-100">
+    <div className="relative h-full w-full flex flex-col bg-transparent text-slate-100 overflow-y-scroll ">
 
-      <main className="flex-1 flex flex-col md:flex-row gap-6 p-6 min-h-0 overflow-auto mt-[6vh] overflow-x-hidden">
+      <main className="flex-1 flex flex-col md:flex-row gap-6 p-6 min-h-0 overflow-auto mt-[6vh] overflow-y-scroll overflow-x-hidden">
         <EditorPanel
           code={code}
           setCode={setCode}
@@ -64,7 +64,7 @@ const PanelPage = () => {
         />
       </main>
 
-      <div className="absolute bottom-8 w-full flex justify-center z-10">
+      <div className=" fixed bottom-8 w-full flex justify-center z-10">
           <button
             onClick={() => setShowLanding(true)}
             className="

@@ -36,7 +36,8 @@ const Navbar = () => {
         <button
           className="
             group relative
-            px-8 py-2
+            px-6 py-2
+            sm:px-8
             text-xs font-semibold tracking-[0.2em]
             uppercase
             text-white
@@ -46,6 +47,10 @@ const Navbar = () => {
             transition-all duration-500 ease-[cubic-bezier(0.77,0,0.175,1)]
             hover:border-white
             active:scale-95
+            min-w-[120px]
+            sm:min-w-[136px]
+            text-[11px]
+            sm:text-xs
           "
         >
           {/* Expanding Background */}
@@ -64,6 +69,7 @@ const Navbar = () => {
             Access Portal
           </span>
         </button>
+        
       </header>
     </div>
   )

@@ -100,7 +100,15 @@ export default function EditorPanel({ code, setCode, onReview, isReviewing }) {
         )}
 
         
-        <div className=" bottom-10 right-10 fixed">
+        <div
+          className="
+            fixed bottom-10 right-10
+            sm:bottom-8 sm:right-6
+            xs:bottom-4 xs:right-2
+            z-20
+            flex
+          "
+        >
           <button
             ref={buttonRef}
             onMouseMove={handleMouseMove}
@@ -111,15 +119,23 @@ export default function EditorPanel({ code, setCode, onReview, isReviewing }) {
               px-10 py-4 rounded-full
               text-sm font-semibold tracking-wide
               transition-colors duration-300
+              shadow-xl
+              xs:px-7 xs:py-3 
               ${isReviewing
                 ? "bg-white/10 text-white/40 cursor-wait"
                 : "bg-white text-black hover:bg-cyan-400"
               }
             `}
+            style={{
+              minWidth: "196px", // maintain original size on all screens
+              minHeight: "56px",
+              fontSize: "1rem",
+            }}
           >
             {isReviewing ? "AI Thinking..." : "Launch AI Review"}
           </button>
         </div>
+        
       </div>
 
       
