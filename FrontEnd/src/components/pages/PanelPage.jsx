@@ -1,95 +1,125 @@
-import React, { useState } from 'react'
+import React, { useState } from "react"
 import axios from "axios"
 import EditorPanel from "../panels/EditorPanel"
 import ReviewPanel from "../panels/ReviewPanel"
-import LandingPage from "../pages/LandingPage"
+import LandingPage from "./LandingPage"
 
 const PanelPage = () => {
-    const [showLanding, setShowLanding] = useState(true)
-    const [code, setCode] = useState(`function sum(a, b) {
-    return a + b
-  }`)
-  
-    const [review, setReview] = useState("")
-    const [isReviewing, setIsReviewing] = useState(false)
-  
-    const API_URL =
-      import.meta.env.VITE_API_URL ||
-      "https://code-reviewer-backend-goml.onrender.com"
-  
-    async function reviewCode() {
-      setIsReviewing(true)
-      setReview("") // Clear previous review
-  
-      try {
-        const response = await axios.post(
-          `${API_URL}/ai/get-review`,
-          { code },
-          { timeout: 60000 }
-        )
-  
-        setReview(response.data ?? "")
-      } catch (err) {
-        const message =
-          err.response?.data?.error || err.message || "Request failed"
-  
-        setReview(`**Error**\n\n${message}`)
-      } finally {
-        setIsReviewing(false)
-      }
+  const [showLanding, setShowLanding] = useState(true)
+  const [code, setCode] = useState(`function sum(a, b) {
+  return a + b
+}`)
+
+  const [review, setReview] = useState("")
+  const [isReviewing, setIsReviewing] = useState(false)
+
+  const API_URL =
+    import.meta.env.VITE_API_URL ||
+    "https://code-reviewer-backend-goml.onrender.com"
+
+  async function reviewCode() {
+    setIsReviewing(true)
+    setReview("")
+
+    try {
+      const response = await axios.post(
+        `${API_URL}/ai/get-review`,
+        { code },
+        { timeout: 60000 }
+      )
+
+      setReview(response.data ?? "")
+    } catch (err) {
+      const message =
+        err.response?.data?.error || err.message || "Request failed"
+
+      setReview(`**Error**\n\n${message}`)
+    } finally {
+      setIsReviewing(false)
     }
-  
-    if (showLanding) {
-      return <LandingPage onGetStarted={() => setShowLanding(false)} />
-    }
-  
+  }
+
+
+  if (showLanding) {
     return (
-      <div className="h-screen  w-screen flex flex-col bg-[#242424] overflow-hidden text-slate-100 ">
-        {/* Header */}
-        {/* <header className="h-16 flex items-center justify-between px-6 border-b border-slate-700/50 bg-[#242424]/50 backdrop-blur-md z-10 shrink-0">
-          <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-500 to-purple-500 flex items-center justify-center font-bold shadow-lg">
-              IQ
-            </div>
-            <h1 className="font-semibold text-lg tracking-wide">codiq.ai</h1>
-          </div>
-          <button
-            onClick={() => setShowLanding(true)}
-            className="text-sm text-slate-400 hover:text-white transition-colors"
-          >
-            Back to Home
-          </button>
-        </header> */}
-  
-        {/* Main Content */}
-        <main className="flex-1 flex flex-col md:flex-row gap-6 p-6 min-h-0 overflow-auto relative mt-[10vh] overflow-x-hidden">
-          {/* Background Decor */}
-          <div className="absolute top-[-20%] left-[-10%] w-[50%] h-[50%] bg-blue-600/10 rounded-full blur-[120px] pointer-events-none" />
-          <div className="absolute bottom-[-20%] right-[-10%] w-[50%] h-[50%] bg-purple-600/10 rounded-full blur-[120px] pointer-events-none" />
-  
-          <EditorPanel
-            code={code}
-            setCode={setCode}
-            onReview={reviewCode}
-            isReviewing={isReviewing}
-          />
-          <ReviewPanel
-            review={review}
-            isReviewing={isReviewing}
-          />
-        </main>
-
-            <div className='absolute bottom-4 w-full flex justify-center z-10'>
-                <button
-                onClick={() => setShowLanding(true)}
-                className="text-sm text-slate-400 hover:text-white transition-colors"
-            >
-                Back to Home
-                </button>
-            </div>
-
+      <div className="h-full w-full">
+        <LandingPage onGetStarted={() => setShowLanding(false)} />
       </div>
     )
+  }
+
+  return (
+    <div className="relative h-full w-full flex flex-col bg-transparent text-slate-100">
+
+      <main className="flex-1 flex flex-col md:flex-row gap-6 p-6 min-h-0 overflow-auto mt-[6vh] overflow-x-hidden">
+        <EditorPanel
+          code={code}
+          setCode={setCode}
+          onReview={reviewCode}
+          isReviewing={isReviewing}
+        />
+        <ReviewPanel
+          review={review}
+          isReviewing={isReviewing}
+        />
+      </main>
+
+      <div className="absolute bottom-8 w-full flex justify-center z-10">
+          <button
+            onClick={() => setShowLanding(true)}
+            className="
+              group relative
+              flex items-center gap-4
+              text-xs font-semibold
+              tracking-[0.35em]
+              uppercase
+              text-white/70
+              transition-all duration-500
+              hover:text-white
+              active:scale-95
+            "
+          >
+            {/* Text swap */}
+            <span className="relative h-[1em] overflow-hidden">
+              <span className="
+                block transition-transform duration-500
+                group-hover:-translate-y-full
+              ">
+                Return Home
+              </span>
+
+              <span className="
+                absolute left-0 top-0
+                translate-y-full
+                transition-transform duration-500
+                group-hover:translate-y-0
+              ">
+                Exit Playground
+              </span>
+            </span>
+
+            {/* Arrow */}
+            <span className="
+              transition-transform duration-500
+              group-hover:translate-x-2
+            ">
+              →
+            </span>
+
+            {/* Underline */}
+            <span className="
+              absolute -bottom-2 left-0 h-px w-0 bg-white
+              transition-all duration-500
+              group-hover:w-full
+            " />
+          </button>
+      </div>
+
+    </div>
+  )
 }
 
 export default PanelPage
+
+
+

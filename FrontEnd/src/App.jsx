@@ -1,12 +1,16 @@
 import React from 'react'
 import PanelPage from './components/pages/PanelPage'
 import Navbar from './components/navigation/Navbar'
+import ThreeScene from './components/effects/ThreeScene'
 
 const App = () => {
   return (
-    <div>
-      <Navbar/>
-      <PanelPage/>
+    <div className="relative w-full h-screen overflow-hidden bg-black">
+      <ThreeScene />
+      <div className="relative z-10 w-full h-full overflow-hidden">
+        <Navbar />
+        <PanelPage />
+      </div>
     </div>
   )
 }
@@ -14,6 +18,7 @@ const App = () => {
 export default App
 
 
+          // old code
 
 
 // import { useState } from "react"

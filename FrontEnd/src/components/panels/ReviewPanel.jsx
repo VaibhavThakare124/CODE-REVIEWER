@@ -1,44 +1,93 @@
+import { useEffect, useRef } from "react"
 import Markdown from "react-markdown"
 import rehypeHighlight from "rehype-highlight"
 import "highlight.js/styles/github-dark.css"
+import { gsap } from "gsap"
 
 export default function ReviewPanel({ review, isReviewing }) {
+  const panelRef = useRef(null)
+
+  useEffect(() => {
+    gsap.fromTo(
+      panelRef.current,
+      { y: 80, opacity: 0, rotateX: -8 },
+      { y: 0, opacity: 1, rotateX: 0, duration: 1.1, ease: "power4.out" }
+    )
+  }, [])
+
   return (
-    <div className="h-[80vh] flex flex-col min-h-0 bg-slate-900/50 backdrop-blur-sm border border-slate-700/50 rounded-2xl overflow-hidden shadow-xl z-10 w-full md:w-1/2">
-      {/* Review Header */}
-      <div className="h-10 bg-slate-800/50 border-b border-slate-700/50 flex items-center px-4">
-        <span className="text-xs font-semibold text-slate-400 uppercase tracking-wider">
-          AI Review Report
+    <div
+      ref={panelRef}
+      className="
+        relative h-[80vh] flex flex-col min-h-0
+        bg-black
+        rounded-2xl
+        border border-white/10
+        shadow-[0_40px_100px_rgba(0,0,0,0.8)]
+        overflow-hidden
+        z-10 w-full md:w-1/2
+      "
+    >
+      
+      <div className="absolute inset-0 pointer-events-none opacity-5
+        bg-[linear-gradient(to_right,white_1px,transparent_1px),linear-gradient(to_bottom,white_1px,transparent_1px)]
+        bg-[size:60px_60px]" />
+
+      
+      <div className="h-14 flex items-center justify-between px-6 border-b border-white/10">
+        <span className="text-white font-semibold tracking-wide">
+          AI Intelligence Report
+        </span>
+
+        <span className="text-xs text-white/40 uppercase tracking-widest">
+          {isReviewing ? "Generating Insights" : review ? "Analysis Complete" : "Standby"}
         </span>
       </div>
 
-      <div className="flex-1 overflow-y-auto p-6 scroll-smooth">
+      <div className="flex-1 overflow-y-auto p-8 relative">
         {isReviewing ? (
-          <div className="space-y-4 animate-pulse">
-            <div className="h-4 bg-slate-700/50 rounded w-3/4"></div>
-            <div className="h-4 bg-slate-700/50 rounded w-1/2"></div>
-            <div className="h-4 bg-slate-700/50 rounded w-5/6"></div>
-            <br />
-            <div className="h-4 bg-slate-700/50 rounded w-2/3"></div>
-            <div className="h-4 bg-slate-700/50 rounded w-full"></div>
-            <div className="h-32 bg-slate-800/50 rounded border border-slate-700/30"></div>
+          <div className="space-y-6 animate-pulse">
+            <div className="h-4 bg-white/10 rounded w-3/4"></div>
+            <div className="h-4 bg-white/10 rounded w-1/2"></div>
+            <div className="h-4 bg-white/10 rounded w-5/6"></div>
+            <div className="h-32 bg-white/5 rounded border border-white/10"></div>
           </div>
         ) : review ? (
-          <div className="markdown-body prose prose-invert max-w-none prose-pre:bg-[#1e1e1e] prose-pre:border prose-pre:border-slate-700/50">
+          <div
+            className="
+              prose prose-invert max-w-none
+              prose-headings:text-white
+              prose-p:text-white/80
+              prose-strong:text-white
+              prose-code:text-cyan-400
+              prose-pre:bg-white/5
+              prose-pre:border prose-pre:border-white/10
+              prose-pre:rounded-xl
+            "
+          >
             <Markdown rehypePlugins={[rehypeHighlight]}>
               {review}
             </Markdown>
           </div>
         ) : (
-          <div className="h-full flex flex-col items-center justify-center text-slate-500 space-y-4 opacity-70">
-            <svg className="w-16 h-16" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-            </svg>
-            <p className="text-lg font-medium">Ready to review</p>
-            <p className="text-sm">Click the button to analyze your code</p>
+          <div className="h-full flex flex-col items-center justify-center text-white/40 space-y-6">
+            <div className="w-20 h-20 border border-white/20 rounded-full flex items-center justify-center text-3xl">
+              ∞
+            </div>
+
+            <div className="text-xl font-semibold tracking-wide text-white">
+              Awaiting Analysis
+            </div>
+
+            <div className="text-sm uppercase tracking-widest">
+              Execute AI review to generate insights
+            </div>
           </div>
         )}
       </div>
+
+      
+      <div className="absolute bottom-0 left-0 w-full h-[1px] bg-white/10"></div>
     </div>
   )
 }
